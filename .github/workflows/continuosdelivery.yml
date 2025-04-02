@@ -27,4 +27,4 @@ jobs:
           with:
             name: projetozipado.zip
         - name: Display structure of downloaded files
-          run: ls -R
+          run: ls -R #teste
