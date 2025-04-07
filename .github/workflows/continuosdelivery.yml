@@ -1,8 +1,9 @@
 name: Continuous Delivery
+
 on:
   push:
     branches:
-      - main # ou qualquer outra branch
+      - main  # pode mudar conforme o branch que quiser monitorar
 
 jobs:
   deliver:
@@ -16,15 +17,16 @@ jobs:
         with:
           name: projetozipado.zip
           path: |
-            **.py
-          README.md
+            **/*.py
+            README.md  # aqui estava o erro de indentação
+
   deploy:
     runs-on: ubuntu-latest
     needs: deliver
     steps:
-      steps:
-        - uses: actions/download-artifact@v4
-          with:
-            name: projetozipado.zip
-        - name: Display structure of downloaded files
-          run: ls -R #teste
+      - uses: actions/download-artifact@v4
+        with:
+          name: projetozipado.zip
+
+      - name: Display structure of downloaded files
+        run: ls -R  # comando para listar arquivos recursivamente
