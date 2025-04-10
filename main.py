@@ -43,3 +43,19 @@ async def update_item(id_estudante: int):
 async def delete_estudante(id_estudante: int):
     return id_estudante > 0
 
+@app.get("/bola8")
+async def bola_magica(pergunta: str = ""):
+    respostas = [
+        "Sim, com certeza!",
+        "Não conte com isso.",
+        "Pergunte novamente mais tarde.",
+        "As chances são boas.",
+        "Definitivamente não.",
+        "Pode apostar nisso!",
+        "Ainda é incerto.",
+        "Sim, mas se esforce!"
+    ]
+    return {
+        "pergunta": pergunta,
+        "resposta": random.choice(respostas)
+    }
