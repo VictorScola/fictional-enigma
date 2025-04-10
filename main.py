@@ -44,7 +44,7 @@ async def delete_estudante(id_estudante: int):
     return id_estudante > 0
 
 @app.get("/bola8")
-async def bola_magica(pergunta: str = ""):
+async def bola_magica(pergunta: str = Query(..., description="Digite sua pergunta para a bola mágica")):
     respostas = [
         "Sim, com certeza!",
         "Não conte com isso.",
