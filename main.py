@@ -22,7 +22,6 @@ async def root():
 #127.0.0.1:8000/teste1
 @app.get("/teste1")
 async def funcaoteste():
-docker-cadastro
     numero_aleatorio = random.randint(1, 100000)
     return {
         "teste": True,
@@ -43,4 +42,4 @@ async def update_item(id_estudante: int):
 @app.delete("/estudantes/delete/{id_estudante}")
 async def delete_estudante(id_estudante: int):
     return id_estudante > 0
-=======
+
