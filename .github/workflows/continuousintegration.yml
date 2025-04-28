@@ -33,10 +33,10 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context:
           push: false
           tags: user/app:latest
-  #Discord
+  #Discord #teste
   name: Discord Webhook
 
   on: [ push ]
