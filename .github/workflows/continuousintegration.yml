@@ -1,11 +1,16 @@
 name: Continuous Integration
+
 on:
   pull_request:
+    branches:
+      - main
+  push:
     branches:
       - main
 
 jobs:
   build:
+    name: Lint Python Code
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -14,40 +19,36 @@ jobs:
       - name: Python Lint Code Scanning Action
         uses: advanced-security/python-lint-code-scanning-action@v1.1.2
         with:
-          linter: pylint #teste
-#JobDocker
+          linter: pylint
+
   docker:
+    name: Build Docker Image
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Check out repository code
         uses: actions/checkout@v4
-      -
-        # Add support for more platforms with QEMU (optional)
-        # https://github.com/docker/setup-qemu-action
-        name: Set up QEMU
+
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build
+
+      - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
-          context:
+          context: .
           push: false
           tags: user/app:latest
-  #Discord #teste
-  name: Discord Webhook
 
-  on: [ push ]
+  discord:
+    name: Send Discord Notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-  jobs:
-    git:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-
-        - name: Run Discord Webhook
-          uses: johnnyhuy/actions-discord-git-webhook@main
-          with:
-            webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Run Discord Webhook
+        uses: johnnyhuy/actions-discord-git-webhook@main
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
