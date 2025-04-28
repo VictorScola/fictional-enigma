@@ -15,7 +15,7 @@ jobs:
         uses: advanced-security/python-lint-code-scanning-action@v1.1.2
         with:
           linter: pylint #teste
-
+#JobDocker
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -36,3 +36,18 @@ jobs:
           context: .
           push: false
           tags: user/app:latest
+  #Discord
+  name: Discord Webhook
+
+  on: [ push ]
+
+  jobs:
+    git:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Run Discord Webhook
+          uses: johnnyhuy/actions-discord-git-webhook@main
+          with:
+            webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
